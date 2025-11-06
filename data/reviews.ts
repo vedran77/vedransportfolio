@@ -10,29 +10,24 @@ export interface Review {
 }
 
 export const reviews: Review[] = [
-  // Add your Upwork reviews here
-  // Visit https://www.upwork.com/freelancers/~01254b7b5cb0334c27 to see your reviews
-  // Copy reviews from your Upwork profile and add them here
-  // Example structure:
   {
     id: "1",
-    clientName: "Client Name",
-    clientTitle: "Their Title/Company",
+    clientName: "Client",
+    clientTitle: "Project Owner",
     rating: 5,
-    comment: "Copy the review text from Upwork here. Make sure to get permission from clients before publishing their reviews.",
-    projectTitle: "Project Name",
-    date: "2024-01-15", // Format: YYYY-MM-DD
-    upworkUrl: "https://www.upwork.com/freelancers/~01254b7b5cb0334c27", // Link to your Upwork profile
+    comment: "Vedran did an excellent job developing and deploying the Penny Ante Poker Club Tournament Registration web app. He handled everything from admin panel setup to domain configuration, email integrations (Resend and Brevo), and real-time debugging over TeamViewer with great patience and skill. Communication was quick, clear, and proactive — Vedran consistently kept me informed of progress and explained technical details in a way that made sense. He worked efficiently, met every update request, and went above and beyond to ensure the app functioned perfectly across multiple browsers and platforms. I appreciate his professionalism, reliability, and attention to detail. I'd gladly work with Vedran again on future phases of this project. Highly recommended!",
+    projectTitle: "HTML App Setup Specialist Needed",
+    date: "2025-11-06",
+    upworkUrl: "https://www.upwork.com/freelancers/~01254b7b5cb0334c27",
   },
-  // Add more reviews below:
-  // {
-  //   id: "2",
-  //   clientName: "Another Client",
-  //   clientTitle: "CEO, Company Name",
-  //   rating: 5,
-  //   comment: "Review text...",
-  //   projectTitle: "Project Name",
-  //   date: "2024-02-20",
-  //   upworkUrl: "https://www.upwork.com/freelancers/~01254b7b5cb0334c27",
-  // },
+  {
+    id: "2",
+    clientName: "Client",
+    clientTitle: "Project Owner",
+    rating: 5,
+    comment: "Working with Verdan on the HighHand Pro app was an absolute pleasure. He exceeded my expectations at every stage, from initial concept to the final polished product. Verdan brought my ideas to life with incredible precision, creativity, and attention to detail. He communicates clearly, delivers on time, and always goes the extra mile to make sure every feature works flawlessly. His technical expertise and design sense are both top-notch. The HighHand Pro app turned out beautifully: clean, fast, and exactly how I envisioned it.",
+    projectTitle: "Convert HTML Project into a Standalone Desktop App",
+    date: "2025-11-04",
+    upworkUrl: "https://www.upwork.com/freelancers/~01254b7b5cb0334c27",
+  },
 ]
