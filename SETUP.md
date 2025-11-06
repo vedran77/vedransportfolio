@@ -65,7 +65,7 @@ Edit `data/reviews.ts` and add reviews from your Upwork profile:
 ## 🔗 Update Contact Information
 
 Edit `components/Contact.tsx`:
-- Update email address: `href="mailto:your.email@example.com"`
+- Update email address: `href="mailto:vedranv673@gmail.com"`
 - Update LinkedIn/Twitter if you have them
 
 ## 📸 Adding Project Images

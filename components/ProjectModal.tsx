@@ -25,7 +25,44 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
   const images = project?.images || (project?.imageUrl ? [project.imageUrl] : [])
+
+  // Minimum swipe distance (in pixels)
+  const minSwipeDistance = 50
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe) {
+      nextImage()
+    }
+    if (isRightSwipe) {
+      prevImage()
+    }
+  }
 
   useEffect(() => {
     if (isOpen && project) {
@@ -50,14 +87,6 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
   }, [isOpen, onClose])
 
   if (!project) return null
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length)
-  }
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
-  }
 
   return (
     <AnimatePresence>
@@ -115,13 +144,19 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             <div className="flex-1 relative overflow-hidden bg-slate-100 dark:bg-slate-800">
               {images.length > 0 ? (
                 <>
-                  <div className="relative w-full h-full">
+                  <div 
+                    className="relative w-full h-full touch-pan-y"
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEnd}
+                  >
                     <Image
                       src={images[currentImageIndex]}
                       alt={`${project.title} - Image ${currentImageIndex + 1}`}
                       fill
-                      className="object-contain"
+                      className="object-contain select-none"
                       priority
+                      draggable={false}
                     />
                   </div>
 

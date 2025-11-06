@@ -62,8 +62,8 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
             {project.images.length}
           </div>
         )}
-        {/* Click indicator overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
+        {/* Click indicator overlay - hidden on mobile */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors hidden sm:flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
