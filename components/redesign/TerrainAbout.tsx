@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Image from "next/image";
 
 const techStack = [
@@ -17,8 +18,17 @@ const techStack = [
 ];
 
 export default function TerrainAbout() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const textY = useTransform(scrollYProgress, [0, 1], [20, -20]);
+
   return (
     <section
+      ref={sectionRef}
       className="relative"
       style={{ backgroundColor: "#0D1117" }}
     >
@@ -53,6 +63,7 @@ export default function TerrainAbout() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="md:col-span-2 order-first md:order-last"
+            style={{ y: imageY }}
           >
             <div className="relative max-w-sm mx-auto md:max-w-none">
               {/* Code-style frame around image */}
@@ -90,6 +101,7 @@ export default function TerrainAbout() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="md:col-span-3"
+            style={{ y: textY }}
           >
             <h2
               className="text-3xl md:text-4xl lg:text-5xl tracking-tight mb-8"

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { projects } from "@/data/projects";
 
@@ -8,6 +9,37 @@ const sortedProjects = [...projects]
   .filter((p) => p.featured)
   .sort((a, b) => a.order - b.order)
   .slice(0, 3);
+
+function ParallaxImage({ src, alt }: { src: string; alt: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [25, -25]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ y }}
+      className="relative overflow-hidden rounded-lg group"
+    >
+      <div style={{ border: "1px solid rgba(107, 140, 174, 0.15)" }} className="overflow-hidden rounded-lg">
+        <Image
+          src={src}
+          alt={alt}
+          width={800}
+          height={500}
+          className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+        />
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: "linear-gradient(to top, rgba(13, 17, 23, 0.6), transparent)" }}
+        />
+      </div>
+    </motion.div>
+  );
+}
 
 export default function TerrainProjects() {
   return (
@@ -71,23 +103,10 @@ export default function TerrainProjects() {
               >
                 {/* Project image */}
                 <div className="md:[direction:ltr]">
-                  <div
-                    className="relative overflow-hidden rounded-lg group"
-                    style={{ border: "1px solid rgba(107, 140, 174, 0.15)" }}
-                  >
-                    <Image
-                      src={project.imageUrl || project.images?.[0] || ""}
-                      alt={project.title}
-                      width={800}
-                      height={500}
-                      className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                    />
-                    {/* Hover overlay */}
-                    <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ background: "linear-gradient(to top, rgba(12, 27, 42, 0.6), transparent)" }}
-                    />
-                  </div>
+                  <ParallaxImage
+                    src={project.imageUrl || project.images?.[0] || ""}
+                    alt={project.title}
+                  />
                 </div>
 
                 {/* Project info */}

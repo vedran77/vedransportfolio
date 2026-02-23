@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const name = "Vedran";
@@ -117,22 +117,33 @@ export default function TerrainHero() {
     };
   }, []);
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const decorY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const canvasOpacity = useTransform(scrollYProgress, [0, 0.8], [0.8, 0]);
+
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{ backgroundColor: "#0D1117" }}
     >
       {/* Animated dot grid canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ opacity: 0.8 }}
-      />
+      <motion.div className="absolute inset-0" style={{ opacity: canvasOpacity }}>
+        <canvas
+          ref={canvasRef}
+          className="w-full h-full"
+        />
+      </motion.div>
 
       {/* Decorative code lines - top left */}
-      <div
+      <motion.div
         className="absolute top-8 left-8 md:top-12 md:left-12 text-xs md:text-sm select-none"
-        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.3 }}
+        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.3, y: decorY }}
       >
         <motion.div
           initial={{ opacity: 0 }}
@@ -142,22 +153,22 @@ export default function TerrainHero() {
           <div>// portfolio.tsx</div>
           <div>// last updated: 2026</div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Decorative line number gutter - right side */}
-      <div
+      <motion.div
         className="absolute top-1/2 -translate-y-1/2 right-8 md:right-12 hidden md:flex flex-col gap-1 select-none"
-        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.15 }}
+        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.15, y: decorY }}
       >
         {Array.from({ length: 20 }, (_, i) => (
           <div key={i} className="text-xs text-right" style={{ width: "2ch" }}>
             {i + 1}
           </div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-6">
+      <motion.div className="relative z-10 text-center px-6" style={{ y: contentY }}>
         {/* Opening tag */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -224,7 +235,7 @@ export default function TerrainHero() {
         >
           &lt;/hello&gt;
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div
