@@ -145,7 +145,7 @@ export default function TerrainHero() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 2.2, duration: 0.6 }}
-        className="absolute top-8 right-8 md:top-12 md:right-12 flex items-center gap-2 z-10"
+        className="absolute top-8 right-16 md:top-12 md:right-24 flex items-center gap-2 z-10"
         style={{ fontFamily: "var(--font-display)" }}
       >
         <span
