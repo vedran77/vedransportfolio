@@ -1,0 +1,22 @@
+{
+  "project": "vedrandev.com",
+  "repo": "https://github.com/vedran77/vedransportfolio",
+  "affiliateLinks": {
+    "digitalocean": "https://m.do.co/c/2ea01b3d389f",
+    "hostinger": "https://hostinger.com?REFERRALCODE=ZSFVEDRANHIE"
+  },
+  "articlesPublished": [
+    "digitalocean-review-2026",
+    "hostinger-vps-review", 
+    "best-cheap-hosting-developers"
+  ],
+  "nextArticleIdeas": [
+    "vercel-vs-netlify-2026",
+    "best-vscode-extensions-developers",
+    "github-copilot-review",
+    "railway-app-review",
+    "supabase-vs-firebase",
+    "tailwind-vs-bootstrap-2026"
+  ],
+  "lastUpdated": "2026-02-23"
+}
