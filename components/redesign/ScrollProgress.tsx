@@ -8,8 +8,12 @@ export default function ScrollProgress() {
   const springProgress = useSpring(0, { stiffness: 100, damping: 30 });
 
   useEffect(() => {
+    document.documentElement.classList.add("hide-scrollbar");
     document.body.classList.add("hide-scrollbar");
-    return () => document.body.classList.remove("hide-scrollbar");
+    return () => {
+      document.documentElement.classList.remove("hide-scrollbar");
+      document.body.classList.remove("hide-scrollbar");
+    };
   }, []);
 
   useEffect(() => {
