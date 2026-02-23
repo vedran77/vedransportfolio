@@ -120,7 +120,7 @@ export default function TerrainHero() {
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ backgroundColor: "#0C1B2A" }}
+      style={{ backgroundColor: "#0D1117" }}
     >
       {/* Animated dot grid canvas */}
       <canvas

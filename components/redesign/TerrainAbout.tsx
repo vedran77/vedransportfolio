@@ -20,7 +20,7 @@ export default function TerrainAbout() {
   return (
     <section
       className="relative"
-      style={{ backgroundColor: "#0C1B2A" }}
+      style={{ backgroundColor: "#0D1117" }}
     >
       {/* Separator line */}
       <div className="max-w-6xl mx-auto px-6 md:px-8">

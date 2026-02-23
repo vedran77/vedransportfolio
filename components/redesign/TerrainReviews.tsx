@@ -15,7 +15,7 @@ function StarIcon() {
 
 export default function TerrainReviews() {
   return (
-    <section style={{ backgroundColor: "#0C1B2A" }}>
+    <section style={{ backgroundColor: "#0D1117" }}>
       {/* Separator */}
       <div className="max-w-6xl mx-auto px-6 md:px-8">
         <div className="h-px" style={{ background: "linear-gradient(to right, transparent, #6B8CAE33, transparent)" }} />
