@@ -40,16 +40,40 @@ function Prose({ children }: { children: React.ReactNode }) {
       prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white
       prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6
       prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
-      prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed
+      prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-p:leading-relaxed
       prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
       prose-strong:text-slate-900 dark:prose-strong:text-white
-      prose-ul:my-6 prose-li:text-slate-600 dark:prose-li:text-slate-400
-      prose-table:my-8 prose-table:overflow-hidden prose-table:rounded-lg prose-table:text-sm sm:prose-table:text-base
-      prose-th:bg-slate-100 dark:prose-th:bg-slate-800 prose-th:px-2 sm:prose-th:px-4 prose-th:py-2 sm:prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-xs sm:prose-th:text-sm
-      prose-td:px-2 sm:prose-td:px-4 prose-td:py-2 sm:prose-td:py-3 prose-td:border-t prose-td:border-slate-200 dark:prose-td:border-slate-700 prose-td:text-xs sm:prose-td:text-sm
+      prose-ul:my-6 prose-li:text-slate-600 dark:prose-li:text-slate-300
     ">
       {children}
     </div>
+  )
+}
+
+// Custom Table component with better styling
+function Table({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="my-8 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+      <table className="w-full text-sm">
+        {children}
+      </table>
+    </div>
+  )
+}
+
+function Th({ children }: { children: React.ReactNode }) {
+  return (
+    <th className="bg-slate-100 dark:bg-slate-800 px-4 py-3 text-left font-semibold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700">
+      {children}
+    </th>
+  )
+}
+
+function Td({ children, highlight }: { children: React.ReactNode; highlight?: boolean }) {
+  return (
+    <td className={`px-4 py-3 border-b border-slate-100 dark:border-slate-800 ${highlight ? 'font-semibold text-green-600 dark:text-green-400' : 'text-slate-600 dark:text-slate-300'}`}>
+      {children}
+    </td>
   )
 }
 
@@ -88,22 +112,22 @@ const postsContent: Record<string, {
         </p>
 
         <h2>Pricing Breakdown (2026)</h2>
-        <div className="overflow-x-auto">
-          <table>
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+          <table className="w-full text-sm">
             <thead>
-              <tr>
-                <th>Droplet Type</th>
-                <th>RAM</th>
-                <th>CPU</th>
-                <th>Storage</th>
-                <th>Price/mo</th>
+              <tr className="bg-slate-50 dark:bg-slate-800">
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Droplet Type</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">RAM</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">CPU</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Storage</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Price/mo</th>
               </tr>
             </thead>
-            <tbody>
-              <tr><td>Basic</td><td>1GB</td><td>1 vCPU</td><td>25GB SSD</td><td className="font-semibold text-green-600 dark:text-green-400">$6</td></tr>
-              <tr><td>Basic</td><td>2GB</td><td>1 vCPU</td><td>50GB SSD</td><td className="font-semibold text-green-600 dark:text-green-400">$12</td></tr>
-              <tr><td>Basic</td><td>4GB</td><td>2 vCPU</td><td>80GB SSD</td><td className="font-semibold text-green-600 dark:text-green-400">$24</td></tr>
-              <tr><td>Premium</td><td>8GB</td><td>4 vCPU</td><td>160GB NVMe</td><td className="font-semibold text-green-600 dark:text-green-400">$48</td></tr>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Basic</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">1GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">1 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">25GB SSD</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$6</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Basic</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">2GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">1 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">50GB SSD</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$12</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Basic</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">4GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">2 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">80GB SSD</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$24</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Premium</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">8GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">4 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">160GB NVMe</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$48</td></tr>
             </tbody>
           </table>
         </div>
@@ -185,22 +209,22 @@ const postsContent: Record<string, {
         <h2>Hostinger VPS Pricing (2026)</h2>
         <p>This is where Hostinger shines — their prices are hard to beat:</p>
         
-        <div className="overflow-x-auto">
-          <table>
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+          <table className="w-full text-sm">
             <thead>
-              <tr>
-                <th>Plan</th>
-                <th>RAM</th>
-                <th>CPU</th>
-                <th>Storage</th>
-                <th>Price/mo</th>
+              <tr className="bg-slate-50 dark:bg-slate-800">
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Plan</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">RAM</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">CPU</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Storage</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Price/mo</th>
               </tr>
             </thead>
-            <tbody>
-              <tr><td>KVM 1</td><td>4GB</td><td>1 vCPU</td><td>50GB NVMe</td><td className="font-semibold text-green-600 dark:text-green-400">$5.99</td></tr>
-              <tr><td>KVM 2</td><td>8GB</td><td>2 vCPU</td><td>100GB NVMe</td><td className="font-semibold text-green-600 dark:text-green-400">$7.99</td></tr>
-              <tr><td>KVM 4</td><td>16GB</td><td>4 vCPU</td><td>200GB NVMe</td><td className="font-semibold text-green-600 dark:text-green-400">$10.99</td></tr>
-              <tr><td>KVM 8</td><td>32GB</td><td>8 vCPU</td><td>400GB NVMe</td><td className="font-semibold text-green-600 dark:text-green-400">$17.99</td></tr>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">KVM 1</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">4GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">1 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">50GB NVMe</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$5.99</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">KVM 2</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">8GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">2 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">100GB NVMe</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$7.99</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">KVM 4</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">16GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">4 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">200GB NVMe</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$10.99</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">KVM 8</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">32GB</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">8 vCPU</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">400GB NVMe</td><td className="px-4 py-3 font-semibold text-green-600 dark:text-green-400">$17.99</td></tr>
             </tbody>
           </table>
         </div>
@@ -257,21 +281,21 @@ const postsContent: Record<string, {
         </p>
 
         <h2>Quick Comparison</h2>
-        <div className="overflow-x-auto">
-          <table>
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+          <table className="w-full text-sm">
             <thead>
-              <tr>
-                <th>Provider</th>
-                <th>Starting Price</th>
-                <th>Best For</th>
-                <th>Free Tier</th>
+              <tr className="bg-slate-50 dark:bg-slate-800">
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Provider</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Starting Price</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Best For</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Free Tier</th>
               </tr>
             </thead>
-            <tbody>
-              <tr><td className="font-semibold">Vercel</td><td>Free</td><td>Frontend/Next.js</td><td className="text-green-600 dark:text-green-400">✅ Generous</td></tr>
-              <tr><td className="font-semibold">Railway</td><td>$5/mo</td><td>Full-stack apps</td><td className="text-green-600 dark:text-green-400">✅ $5 credit</td></tr>
-              <tr><td className="font-semibold">Hostinger</td><td>$5.99/mo</td><td>Budget VPS</td><td className="text-slate-400">❌</td></tr>
-              <tr><td className="font-semibold">DigitalOcean</td><td>$6/mo</td><td>Serious projects</td><td className="text-blue-600 dark:text-blue-400">$200 credit</td></tr>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 font-semibold text-slate-900 dark:text-white">Vercel</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Free</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Frontend/Next.js</td><td className="px-4 py-3 text-green-600 dark:text-green-400">✅ Generous</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 font-semibold text-slate-900 dark:text-white">Railway</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">$5/mo</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Full-stack apps</td><td className="px-4 py-3 text-green-600 dark:text-green-400">✅ $5 credit</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 font-semibold text-slate-900 dark:text-white">Hostinger</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">$5.99/mo</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Budget VPS</td><td className="px-4 py-3 text-slate-400">❌</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 font-semibold text-slate-900 dark:text-white">DigitalOcean</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">$6/mo</td><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Serious projects</td><td className="px-4 py-3 text-blue-600 dark:text-blue-400">$200 credit</td></tr>
             </tbody>
           </table>
         </div>
@@ -295,19 +319,19 @@ const postsContent: Record<string, {
         <p>DigitalOcean hits the sweet spot between simplicity and power.</p>
 
         <h2>My Recommendations</h2>
-        <div className="overflow-x-auto">
-          <table>
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+          <table className="w-full text-sm">
             <thead>
-              <tr>
-                <th>Your Situation</th>
-                <th>My Pick</th>
+              <tr className="bg-slate-50 dark:bg-slate-800">
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">Your Situation</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-900 dark:text-white">My Pick</th>
               </tr>
             </thead>
-            <tbody>
-              <tr><td>Just learning</td><td className="font-semibold">Vercel (free)</td></tr>
-              <tr><td>Need cheap VPS</td><td className="font-semibold text-purple-600 dark:text-purple-400">Hostinger</td></tr>
-              <tr><td>Building a startup</td><td className="font-semibold text-blue-600 dark:text-blue-400">DigitalOcean</td></tr>
-              <tr><td>Quick prototype</td><td className="font-semibold">Railway</td></tr>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Just learning</td><td className="px-4 py-3 font-semibold text-slate-900 dark:text-white">Vercel (free)</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Need cheap VPS</td><td className="px-4 py-3 font-semibold text-purple-600 dark:text-purple-400">Hostinger</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Building a startup</td><td className="px-4 py-3 font-semibold text-blue-600 dark:text-blue-400">DigitalOcean</td></tr>
+              <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50"><td className="px-4 py-3 text-slate-600 dark:text-slate-300">Quick prototype</td><td className="px-4 py-3 font-semibold text-slate-900 dark:text-white">Railway</td></tr>
             </tbody>
           </table>
         </div>
