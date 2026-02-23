@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Outfit } from "next/font/google";
+import { Fira_Code, Outfit } from "next/font/google";
 
-const dmSerif = DM_Serif_Display({
-  weight: "400",
+const firaCode = Fira_Code({
   subsets: ["latin"],
   variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const outfit = Outfit({
@@ -24,7 +24,7 @@ export default function RedesignLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`${dmSerif.variable} ${outfit.variable}`}>
+    <div className={`${firaCode.variable} ${outfit.variable}`}>
       {children}
     </div>
   );

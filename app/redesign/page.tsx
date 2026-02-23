@@ -3,15 +3,19 @@ import TerrainAbout from "@/components/redesign/TerrainAbout";
 import TerrainProjects from "@/components/redesign/TerrainProjects";
 import TerrainReviews from "@/components/redesign/TerrainReviews";
 import TerrainContact from "@/components/redesign/TerrainContact";
+import ScrollProgress from "@/components/redesign/ScrollProgress";
 
 export default function RedesignPage() {
   return (
-    <main>
-      <TerrainHero />
-      <TerrainAbout />
-      <TerrainProjects />
-      <TerrainReviews />
-      <TerrainContact />
-    </main>
+    <>
+      <ScrollProgress />
+      <main>
+        <TerrainHero />
+        <TerrainAbout />
+        <TerrainProjects />
+        <TerrainReviews />
+        <TerrainContact />
+      </main>
+    </>
   );
 }

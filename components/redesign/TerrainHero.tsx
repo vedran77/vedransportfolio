@@ -1,72 +1,187 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const name = "Vedran";
+const roles = ["full-stack developer", "problem solver", "code craftsman"];
 
 export default function TerrainHero() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentRole = roles[roleIndex];
+    let timeout: NodeJS.Timeout;
+
+    if (!isDeleting && displayed.length < currentRole.length) {
+      timeout = setTimeout(() => {
+        setDisplayed(currentRole.slice(0, displayed.length + 1));
+      }, 80);
+    } else if (!isDeleting && displayed.length === currentRole.length) {
+      timeout = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && displayed.length > 0) {
+      timeout = setTimeout(() => {
+        setDisplayed(currentRole.slice(0, displayed.length - 1));
+      }, 40);
+    } else if (isDeleting && displayed.length === 0) {
+      setIsDeleting(false);
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayed, isDeleting, roleIndex]);
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationId: number;
+    const spacing = 30;
+    const dotRadius = 1;
+    const maxInfluence = 120;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+
+    const handleMouse = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current = { x: -1000, y: -1000 };
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+    canvas.addEventListener("mousemove", handleMouse);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+
+    const draw = (time: number) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const cols = Math.ceil(canvas.width / spacing);
+      const rows = Math.ceil(canvas.height / spacing);
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * spacing + spacing / 2;
+          const y = row * spacing + spacing / 2;
+
+          const dx = mx - x;
+          const dy = my - y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          // Base pulse
+          const phase = (row * 7 + col * 13) % 100;
+          const pulse = 0.08 + Math.sin(time * 0.001 + phase) * 0.04;
+
+          // Mouse influence
+          const influence = Math.max(0, 1 - dist / maxInfluence);
+          const alpha = pulse + influence * 0.35;
+          const radius = dotRadius + influence * 1.5;
+
+          if (influence > 0.01) {
+            ctx.fillStyle = `rgba(52, 211, 153, ${alpha})`;
+          } else {
+            ctx.fillStyle = `rgba(107, 140, 174, ${alpha})`;
+          }
+
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      animationId = requestAnimationFrame(draw);
+    };
+
+    animationId = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", resize);
+      canvas.removeEventListener("mousemove", handleMouse);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ backgroundColor: "#F5F0E8" }}
+      style={{ backgroundColor: "#0C1B2A" }}
     >
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes blob-morph-1 {
-          0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-          25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-          50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
-          75% { border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%; }
-        }
-        @keyframes blob-morph-2 {
-          0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-          25% { border-radius: 70% 30% 50% 50% / 30% 40% 70% 60%; }
-          50% { border-radius: 30% 60% 40% 70% / 60% 70% 30% 40%; }
-          75% { border-radius: 50% 40% 60% 50% / 50% 30% 60% 70%; }
-        }
-        @keyframes seed-bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(8px); }
-        }
-      ` }} />
-
-      {/* Organic blob 1 - top right */}
-      <div
-        className="absolute -top-20 -right-20 w-[500px] h-[500px] md:w-[700px] md:h-[700px]"
-        style={{
-          backgroundColor: "#E8DCC8",
-          opacity: 0.5,
-          animation: "blob-morph-1 20s ease-in-out infinite",
-        }}
+      {/* Animated dot grid canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+        style={{ opacity: 0.8 }}
       />
 
-      {/* Organic blob 2 - bottom left */}
+      {/* Decorative code lines - top left */}
       <div
-        className="absolute -bottom-32 -left-32 w-[400px] h-[400px] md:w-[550px] md:h-[550px]"
-        style={{
-          backgroundColor: "#C2703E",
-          opacity: 0.12,
-          animation: "blob-morph-2 25s ease-in-out infinite",
-        }}
-      />
+        className="absolute top-8 left-8 md:top-12 md:left-12 text-xs md:text-sm select-none"
+        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.3 }}
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          transition={{ delay: 2.0, duration: 1 }}
+        >
+          <div>// portfolio.tsx</div>
+          <div>// last updated: 2026</div>
+        </motion.div>
+      </div>
+
+      {/* Decorative line number gutter - right side */}
+      <div
+        className="absolute top-1/2 -translate-y-1/2 right-8 md:right-12 hidden md:flex flex-col gap-1 select-none"
+        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.15 }}
+      >
+        {Array.from({ length: 20 }, (_, i) => (
+          <div key={i} className="text-xs text-right" style={{ width: "2ch" }}>
+            {i + 1}
+          </div>
+        ))}
+      </div>
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-10 text-center px-6">
+        {/* Opening tag */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-sm md:text-base mb-6"
+          style={{ fontFamily: "var(--font-display)", color: "#64748B" }}
+        >
+          &lt;hello&gt;
+        </motion.div>
+
         {/* Animated name */}
         <h1
-          className="text-7xl sm:text-8xl md:text-9xl tracking-tight mb-6"
-          style={{
-            fontFamily: "var(--font-display)",
-            color: "#2A1F14",
-          }}
+          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tighter mb-4"
+          style={{ fontFamily: "var(--font-display)", color: "#F0F4F8" }}
         >
           {name.split("").map((letter, i) => (
             <motion.span
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.6,
-                delay: 0.3 + i * 0.08,
+                duration: 0.5,
+                delay: 0.3 + i * 0.07,
                 ease: [0.22, 1, 0.36, 1],
               }}
               className="inline-block"
@@ -76,42 +191,74 @@ export default function TerrainHero() {
           ))}
         </h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0, ease: "easeOut" }}
-          className="text-lg sm:text-xl md:text-2xl font-light max-w-lg mx-auto"
-          style={{
-            fontFamily: "var(--font-body)",
-            color: "#5C6B4F",
-          }}
+        {/* Typing role */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.0, duration: 0.5 }}
+          className="text-lg sm:text-xl md:text-2xl mb-8"
+          style={{ fontFamily: "var(--font-display)", color: "#6B8CAE" }}
         >
-          I craft digital experiences with intention and care
-        </motion.p>
+          <span style={{ color: "#34D399" }}>const</span>{" "}
+          <span style={{ color: "#F0F4F8" }}>role</span>{" "}
+          <span style={{ color: "#34D399" }}>=</span>{" "}
+          <span style={{ color: "#34D399" }}>&quot;{displayed}</span>
+          <span
+            className="inline-block w-[2px] h-[1.1em] align-middle ml-px"
+            style={{
+              backgroundColor: "#34D399",
+              animation: "cursor-blink 1s step-end infinite",
+            }}
+          />
+          <span style={{ color: "#34D399" }}>&quot;</span>
+          <span style={{ color: "#F0F4F8" }}>;</span>
+        </motion.div>
+
+        {/* Closing tag */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.3 }}
+          className="text-sm md:text-base"
+          style={{ fontFamily: "var(--font-display)", color: "#64748B" }}
+        >
+          &lt;/hello&gt;
+        </motion.div>
       </div>
 
-      {/* Scroll indicator - organic seed/teardrop */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        transition={{ delay: 2.0, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <svg
-          width="20"
-          height="32"
-          viewBox="0 0 20 32"
-          fill="none"
-          style={{ animation: "seed-bounce 2s ease-in-out infinite" }}
+        <span
+          className="text-xs"
+          style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.5 }}
         >
-          <path
-            d="M10 0C10 0 0 16 0 22C0 27.5228 4.47715 32 10 32C15.5228 32 20 27.5228 20 22C20 16 10 0 10 0Z"
-            fill="#C2703E"
-            fillOpacity="0.6"
-          />
-        </svg>
+          scroll
+        </span>
+        <div
+          className="w-px h-8"
+          style={{
+            background: "linear-gradient(to bottom, #6B8CAE, transparent)",
+            animation: "scroll-fade 2s ease-in-out infinite",
+          }}
+        />
       </motion.div>
+
+      {/* CSS animations */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes cursor-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes scroll-fade {
+          0%, 100% { opacity: 0.3; transform: scaleY(1); }
+          50% { opacity: 0.7; transform: scaleY(1.3); }
+        }
+      ` }} />
     </section>
   );
 }

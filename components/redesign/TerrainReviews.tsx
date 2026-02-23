@@ -4,11 +4,10 @@ import { motion } from "framer-motion";
 import { reviews } from "@/data/reviews";
 
 const selectedReviews = [reviews[0], reviews[3], reviews[4]];
-const cardRotations = [-1, 0.5, -0.5];
 
 function StarIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="#C2703E">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="#34D399">
       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
     </svg>
   );
@@ -16,30 +15,35 @@ function StarIcon() {
 
 export default function TerrainReviews() {
   return (
-    <section style={{ backgroundColor: "#2A1F14" }} className="py-24 md:py-32">
+    <section style={{ backgroundColor: "#0C1B2A" }}>
+      {/* Separator */}
       <div className="max-w-6xl mx-auto px-6 md:px-8">
+        <div className="h-px" style={{ background: "linear-gradient(to right, transparent, #6B8CAE33, transparent)" }} />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 md:px-8 py-24 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <p
-            className="text-sm uppercase tracking-[0.2em] mb-4 font-semibold"
-            style={{ fontFamily: "var(--font-body)", color: "#C2703E" }}
+          <span
+            className="text-sm block mb-6"
+            style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.5 }}
           >
-            Testimonials
-          </p>
+            {'// client-reviews'}
+          </span>
           <h2
-            className="text-4xl md:text-5xl"
-            style={{ fontFamily: "var(--font-display)", color: "#F5F0E8" }}
+            className="text-3xl md:text-4xl lg:text-5xl tracking-tight"
+            style={{ fontFamily: "var(--font-display)", color: "#F0F4F8" }}
           >
-            What others say
+            feedback<span style={{ color: "#64748B" }}>.map()</span>
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {selectedReviews.map((review, index) => (
             <motion.div
               key={review.id}
@@ -48,14 +52,13 @@ export default function TerrainReviews() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{
                 duration: 0.5,
-                delay: index * 0.15,
+                delay: index * 0.12,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="rounded-xl p-6 md:p-8"
+              className="rounded-lg p-6"
               style={{
-                backgroundColor: "rgba(245, 240, 232, 0.05)",
-                border: "1px solid rgba(245, 240, 232, 0.1)",
-                transform: `rotate(${cardRotations[index]}deg)`,
+                backgroundColor: "rgba(107, 140, 174, 0.06)",
+                border: "1px solid rgba(107, 140, 174, 0.12)",
               }}
             >
               {/* Stars */}
@@ -67,10 +70,10 @@ export default function TerrainReviews() {
 
               {/* Quote */}
               <p
-                className="text-base font-light italic leading-relaxed mb-6"
+                className="text-sm font-light leading-relaxed mb-6"
                 style={{
                   fontFamily: "var(--font-body)",
-                  color: "rgba(245, 240, 232, 0.85)",
+                  color: "rgba(240, 244, 248, 0.7)",
                 }}
               >
                 &ldquo;{review.comment.length > 200
@@ -79,11 +82,14 @@ export default function TerrainReviews() {
               </p>
 
               {/* Project & date */}
-              <div>
+              <div
+                className="pt-4"
+                style={{ borderTop: "1px solid rgba(107, 140, 174, 0.1)" }}
+              >
                 {review.projectTitle && (
                   <p
-                    className="text-sm font-medium mb-1"
-                    style={{ fontFamily: "var(--font-body)", color: "#C2703E" }}
+                    className="text-xs font-medium mb-1"
+                    style={{ fontFamily: "var(--font-display)", color: "#34D399" }}
                   >
                     {review.projectTitle}
                   </p>
@@ -92,12 +98,12 @@ export default function TerrainReviews() {
                   <p
                     className="text-xs"
                     style={{
-                      fontFamily: "var(--font-body)",
-                      color: "rgba(245, 240, 232, 0.4)",
+                      fontFamily: "var(--font-display)",
+                      color: "rgba(107, 140, 174, 0.5)",
                     }}
                   >
                     {new Date(review.date).toLocaleDateString("en-US", {
-                      month: "long",
+                      month: "short",
                       year: "numeric",
                     })}
                   </p>

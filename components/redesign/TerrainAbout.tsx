@@ -4,45 +4,46 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const techStack = [
-  { name: "React", color: "#5C6B4F" },
-  { name: "Next.js", color: "#2A1F14" },
-  { name: "TypeScript", color: "#C2703E" },
-  { name: "Node.js", color: "#5C6B4F" },
-  { name: "Go", color: "#2A1F14" },
-  { name: "Rust", color: "#C2703E" },
-  { name: "Electron", color: "#5C6B4F" },
-  { name: "CxJS", color: "#2A1F14" },
-  { name: "Tailwind", color: "#C2703E" },
-  { name: "Prisma", color: "#5C6B4F" },
+  { name: "React", color: "#64748B" },
+  { name: "Next.js", color: "#34D399" },
+  { name: "TypeScript", color: "#64748B" },
+  { name: "Node.js", color: "#34D399" },
+  { name: "Go", color: "#64748B" },
+  { name: "Rust", color: "#34D399" },
+  { name: "Electron", color: "#64748B" },
+  { name: "CxJS", color: "#34D399" },
+  { name: "Tailwind", color: "#64748B" },
+  { name: "Prisma", color: "#34D399" },
 ];
-
-const rotations = [-2, 1.5, -1, 2, -1.5, 1, -2.5, 1.5, -1, 2.5];
 
 export default function TerrainAbout() {
   return (
     <section
       className="relative"
-      style={{
-        background: "linear-gradient(180deg, #E8DCC8 0%, #D4B896 100%)",
-      }}
+      style={{ backgroundColor: "#0C1B2A" }}
     >
-      {/* Wave divider from hero */}
-      <div className="absolute top-0 left-0 w-full" style={{ marginTop: "-1px" }}>
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto block"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 0H1440V60C1440 60 1320 120 1080 100C840 80 720 30 480 60C240 90 120 110 0 80V0Z"
-            fill="#F5F0E8"
-          />
-        </svg>
+      {/* Separator line */}
+      <div className="max-w-6xl mx-auto px-6 md:px-8">
+        <div className="h-px" style={{ background: "linear-gradient(to right, transparent, #6B8CAE33, transparent)" }} />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 md:px-8 py-24 md:py-32 pt-32 md:pt-40">
+      <div className="max-w-6xl mx-auto px-6 md:px-8 py-24 md:py-32">
+        {/* Section comment */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-12"
+        >
+          <span
+            className="text-sm"
+            style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.5 }}
+          >
+            {'// about-me'}
+          </span>
+        </motion.div>
+
         {/* Asymmetric grid */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-16 items-center">
           {/* Image - shows first on mobile */}
@@ -54,18 +55,31 @@ export default function TerrainAbout() {
             className="md:col-span-2 order-first md:order-last"
           >
             <div className="relative max-w-sm mx-auto md:max-w-none">
-              <Image
-                src="/image.png"
-                alt="Vedran"
-                width={500}
-                height={600}
-                className="w-full h-auto object-cover"
-                style={{
-                  clipPath:
-                    "polygon(30% 0%, 100% 0%, 100% 70%, 85% 100%, 0% 100%, 0% 20%)",
-                  filter: "drop-shadow(0 20px 40px rgba(42, 31, 20, 0.2))",
-                }}
-              />
+              {/* Code-style frame around image */}
+              <div
+                className="absolute -top-3 -left-3 text-xs"
+                style={{ fontFamily: "var(--font-display)", color: "#64748B", opacity: 0.6 }}
+              >
+                {'<img>'}
+              </div>
+              <div
+                className="rounded-lg overflow-hidden"
+                style={{ border: "1px solid rgba(107, 140, 174, 0.2)" }}
+              >
+                <Image
+                  src="/image.png"
+                  alt="Vedran"
+                  width={500}
+                  height={600}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <div
+                className="absolute -bottom-3 -right-3 text-xs"
+                style={{ fontFamily: "var(--font-display)", color: "#64748B", opacity: 0.6 }}
+              >
+                {'</img>'}
+              </div>
             </div>
           </motion.div>
 
@@ -77,23 +91,19 @@ export default function TerrainAbout() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="md:col-span-3"
           >
-            <p
-              className="text-sm uppercase tracking-[0.2em] mb-4 font-semibold"
-              style={{ fontFamily: "var(--font-body)", color: "#C2703E" }}
-            >
-              About
-            </p>
             <h2
-              className="text-4xl md:text-5xl mb-8"
-              style={{ fontFamily: "var(--font-display)", color: "#2A1F14" }}
+              className="text-3xl md:text-4xl lg:text-5xl tracking-tight mb-8"
+              style={{ fontFamily: "var(--font-display)", color: "#F0F4F8" }}
             >
-              Building with purpose
+              Building with
+              <br />
+              <span style={{ color: "#34D399" }}>purpose</span>
             </h2>
             <div
-              className="space-y-4 text-lg font-light leading-relaxed"
+              className="space-y-4 text-base md:text-lg font-light leading-relaxed"
               style={{
                 fontFamily: "var(--font-body)",
-                color: "rgba(42, 31, 20, 0.8)",
+                color: "rgba(240, 244, 248, 0.7)",
               }}
             >
               <p>
@@ -109,43 +119,47 @@ export default function TerrainAbout() {
               </p>
             </div>
 
-            {/* Tech pebbles */}
+            {/* Tech stack */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.06 } },
+                visible: { transition: { staggerChildren: 0.05 } },
               }}
-              className="flex flex-wrap gap-3 mt-10"
+              className="mt-10"
             >
-              {techStack.map((tech, i) => (
-                <motion.span
-                  key={tech.name}
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.8, y: 10 },
-                    visible: {
-                      opacity: 1,
-                      scale: 1,
-                      y: 0,
-                      transition: {
-                        duration: 0.4,
-                        ease: [0.22, 1, 0.36, 1],
+              <div
+                className="text-xs mb-4"
+                style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.5 }}
+              >
+                {'// tech.stack'}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {techStack.map((tech) => (
+                  <motion.span
+                    key={tech.name}
+                    variants={{
+                      hidden: { opacity: 0, scale: 0.9 },
+                      visible: {
+                        opacity: 1,
+                        scale: 1,
+                        transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
                       },
-                    },
-                  }}
-                  className="px-4 py-1.5 rounded-full text-sm font-medium"
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    backgroundColor: tech.color,
-                    color: "#F5F0E8",
-                    transform: `rotate(${rotations[i]}deg)`,
-                  }}
-                >
-                  {tech.name}
-                </motion.span>
-              ))}
+                    }}
+                    className="px-3 py-1 rounded text-xs font-medium tracking-wide"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      backgroundColor: "rgba(107, 140, 174, 0.1)",
+                      border: `1px solid ${tech.color}33`,
+                      color: tech.color,
+                    }}
+                  >
+                    {tech.name}
+                  </motion.span>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
         </div>
