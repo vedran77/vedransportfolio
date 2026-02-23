@@ -43,7 +43,7 @@ function ParallaxImage({ src, alt }: { src: string; alt: string }) {
 
 export default function TerrainProjects() {
   return (
-    <section style={{ backgroundColor: "#0D1117" }}>
+    <section id="projects" style={{ backgroundColor: "#0D1117" }}>
       {/* Separator */}
       <div className="max-w-6xl mx-auto px-6 md:px-8">
         <div className="h-px" style={{ background: "linear-gradient(to right, transparent, #6B8CAE33, transparent)" }} />

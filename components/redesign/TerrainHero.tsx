@@ -140,6 +140,31 @@ export default function TerrainHero() {
         />
       </motion.div>
 
+      {/* Status badge - top right */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 2.2, duration: 0.6 }}
+        className="absolute top-8 right-8 md:top-12 md:right-12 flex items-center gap-2 z-10"
+        style={{ fontFamily: "var(--font-display)" }}
+      >
+        <span
+          className="relative flex h-2.5 w-2.5"
+        >
+          <span
+            className="absolute inline-flex h-full w-full rounded-full opacity-75"
+            style={{ backgroundColor: "#34D399", animation: "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite" }}
+          />
+          <span
+            className="relative inline-flex rounded-full h-2.5 w-2.5"
+            style={{ backgroundColor: "#34D399" }}
+          />
+        </span>
+        <span className="text-xs" style={{ color: "#6B8CAE" }}>
+          Available for work
+        </span>
+      </motion.div>
+
       {/* Decorative code lines - top left */}
       <motion.div
         className="absolute top-8 left-8 md:top-12 md:left-12 text-xs md:text-sm select-none"
@@ -235,6 +260,81 @@ export default function TerrainHero() {
         >
           &lt;/hello&gt;
         </motion.div>
+
+        {/* CTA terminal commands */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.6 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-10"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          <a
+            href="#projects"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="group flex items-center gap-2 px-4 py-2 rounded text-sm transition-all duration-200"
+            style={{
+              border: "1px solid rgba(52, 211, 153, 0.3)",
+              color: "#34D399",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(52, 211, 153, 0.1)";
+              e.currentTarget.style.borderColor = "rgba(52, 211, 153, 0.6)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.borderColor = "rgba(52, 211, 153, 0.3)";
+            }}
+          >
+            <span style={{ color: "#64748B" }}>&gt;</span> view-work
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="group flex items-center gap-2 px-4 py-2 rounded text-sm transition-all duration-200"
+            style={{
+              border: "1px solid rgba(107, 140, 174, 0.2)",
+              color: "#6B8CAE",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(107, 140, 174, 0.08)";
+              e.currentTarget.style.borderColor = "rgba(107, 140, 174, 0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.borderColor = "rgba(107, 140, 174, 0.2)";
+            }}
+          >
+            <span style={{ color: "#64748B" }}>&gt;</span> contact
+          </a>
+        </motion.div>
+      </motion.div>
+
+      {/* Mini code snippet - bottom left */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
+        className="absolute bottom-12 left-8 md:left-12 hidden md:block select-none"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "11px",
+          lineHeight: "1.6",
+          color: "#6B8CAE",
+          opacity: 0.25,
+        }}
+      >
+        <div><span style={{ color: "#34D399", opacity: 0.6 }}>const</span> dev = {"{"}</div>
+        <div>&nbsp;&nbsp;name: <span style={{ color: "#34D399", opacity: 0.6 }}>&quot;Vedran&quot;</span>,</div>
+        <div>&nbsp;&nbsp;focus: <span style={{ color: "#34D399", opacity: 0.6 }}>&quot;web&quot;</span>,</div>
+        <div>&nbsp;&nbsp;coffee: <span style={{ color: "#34D399", opacity: 0.6 }}>true</span>,</div>
+        <div>{"}"};</div>
       </motion.div>
 
       {/* Scroll indicator */}
@@ -261,6 +361,9 @@ export default function TerrainHero() {
 
       {/* CSS animations */}
       <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes ping {
+          75%, 100% { transform: scale(2); opacity: 0; }
+        }
         @keyframes cursor-blink {
           0%, 100% { opacity: 1; }
           50% { opacity: 0; }
