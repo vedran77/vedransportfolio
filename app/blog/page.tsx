@@ -82,14 +82,14 @@ export default function BlogPage() {
               Developer Resources
             </motion.div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
               The{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                 Blog
               </span>
             </h1>
             
-            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-2">
               Honest reviews, tutorials, and guides for developers. 
               No fluff, just practical insights that help you build better.
             </p>
@@ -106,8 +106,8 @@ export default function BlogPage() {
                 <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-1">
                   <div className={`absolute inset-0 bg-gradient-to-br ${featuredPost.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500`} />
                   
-                  <div className="relative rounded-2xl bg-white dark:bg-slate-900 p-8 md:p-12">
-                    <div className="flex flex-col md:flex-row md:items-center gap-8">
+                  <div className="relative rounded-2xl bg-white dark:bg-slate-900 p-5 sm:p-8 md:p-12">
+                    <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
                       {/* Content */}
                       <div className="flex-1 space-y-4">
                         <div className="flex items-center gap-3">
@@ -119,9 +119,9 @@ export default function BlogPage() {
                           </span>
                         </div>
                         
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {featuredPost.title}
-                          <span className="block text-2xl md:text-3xl text-slate-600 dark:text-slate-400 font-normal mt-1">
+                          <span className="block text-xl sm:text-2xl md:text-3xl text-slate-600 dark:text-slate-400 font-normal mt-1">
                             {featuredPost.subtitle}
                           </span>
                         </h2>
@@ -174,7 +174,7 @@ export default function BlogPage() {
             More Articles
           </motion.h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             {otherPosts.map((post, index) => (
               <motion.div
                 key={post.slug}
@@ -227,31 +227,31 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Stay Updated
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400">
               Get notified when I publish new articles about dev tools, hosting, and building better software.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4">
               <Link
                 href="/#contact"
-                className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-black rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-slate-900 dark:bg-white text-white dark:text-black rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors text-sm sm:text-base"
               >
                 Get in Touch
               </Link>
               <Link
                 href="https://github.com/vedran77"
                 target="_blank"
-                className="px-8 py-4 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg font-medium hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+                className="px-6 sm:px-8 py-3 sm:py-4 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg font-medium hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors text-sm sm:text-base"
               >
                 Follow on GitHub
               </Link>

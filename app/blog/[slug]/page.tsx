@@ -17,7 +17,7 @@ function CTAButton({ href, children, variant = "primary" }: { href: string; chil
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
+      className={`inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-200 text-sm sm:text-base ${
         variant === "primary"
           ? "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
           : "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700"
@@ -44,9 +44,9 @@ function Prose({ children }: { children: React.ReactNode }) {
       prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
       prose-strong:text-slate-900 dark:prose-strong:text-white
       prose-ul:my-6 prose-li:text-slate-600 dark:prose-li:text-slate-400
-      prose-table:my-8 prose-table:overflow-hidden prose-table:rounded-lg
-      prose-th:bg-slate-100 dark:prose-th:bg-slate-800 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold
-      prose-td:px-4 prose-td:py-3 prose-td:border-t prose-td:border-slate-200 dark:prose-td:border-slate-700
+      prose-table:my-8 prose-table:overflow-hidden prose-table:rounded-lg prose-table:text-sm sm:prose-table:text-base
+      prose-th:bg-slate-100 dark:prose-th:bg-slate-800 prose-th:px-2 sm:prose-th:px-4 prose-th:py-2 sm:prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-xs sm:prose-th:text-sm
+      prose-td:px-2 sm:prose-td:px-4 prose-td:py-2 sm:prose-td:py-3 prose-td:border-t prose-td:border-slate-200 dark:prose-td:border-slate-700 prose-td:text-xs sm:prose-td:text-sm
     ">
       {children}
     </div>
@@ -125,19 +125,19 @@ const postsContent: Record<string, {
         </ul>
 
         <h2>Who Should Use DigitalOcean?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-8">
-          <div className="p-6 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
-            <h3 className="font-bold text-green-800 dark:text-green-300 mb-3">✅ Perfect for:</h3>
-            <ul className="space-y-2 text-green-700 dark:text-green-400 text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 not-prose my-6 sm:my-8">
+          <div className="p-4 sm:p-6 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+            <h3 className="font-bold text-green-800 dark:text-green-300 mb-2 sm:mb-3 text-sm sm:text-base">✅ Perfect for:</h3>
+            <ul className="space-y-1.5 sm:space-y-2 text-green-700 dark:text-green-400 text-xs sm:text-sm">
               <li>• Indie developers and startups</li>
               <li>• Side projects and MVPs</li>
               <li>• Developers tired of AWS complexity</li>
               <li>• Teams wanting predictable billing</li>
             </ul>
           </div>
-          <div className="p-6 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
-            <h3 className="font-bold text-red-800 dark:text-red-300 mb-3">❌ Not ideal for:</h3>
-            <ul className="space-y-2 text-red-700 dark:text-red-400 text-sm">
+          <div className="p-4 sm:p-6 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+            <h3 className="font-bold text-red-800 dark:text-red-300 mb-2 sm:mb-3 text-sm sm:text-base">❌ Not ideal for:</h3>
+            <ul className="space-y-1.5 sm:space-y-2 text-red-700 dark:text-red-400 text-xs sm:text-sm">
               <li>• Enterprise with compliance requirements</li>
               <li>• Need for 20+ global regions</li>
               <li>• Heavy machine learning workloads</li>
@@ -150,13 +150,13 @@ const postsContent: Record<string, {
           After using DigitalOcean for 5+ years, it's still my go-to for hosting. The simplicity, pricing, and developer experience are unmatched.
         </p>
 
-        <div className="not-prose my-10 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-800">
-          <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-3">Ready to try it?</h3>
-          <p className="text-slate-600 dark:text-slate-400 mb-4">Get $200 in free credit to test everything — valid for 60 days.</p>
+        <div className="not-prose my-8 sm:my-10 p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-800">
+          <h3 className="font-bold text-slate-900 dark:text-white text-base sm:text-lg mb-2 sm:mb-3">Ready to try it?</h3>
+          <p className="text-slate-600 dark:text-slate-400 mb-4 text-sm sm:text-base">Get $200 in free credit to test everything — valid for 60 days.</p>
           <CTAButton href={affiliateLinks.digitalocean}>
             🚀 Claim Your $200 Credit
           </CTAButton>
-          <p className="text-xs text-slate-500 dark:text-slate-500 mt-4">
+          <p className="text-xs text-slate-500 dark:text-slate-500 mt-3 sm:mt-4">
             * Affiliate link — I earn a commission if you become a paying customer, at no extra cost to you.
           </p>
         </div>
@@ -230,13 +230,13 @@ const postsContent: Record<string, {
           Hostinger VPS delivers incredible value. If you're cost-conscious and don't need enterprise features, it's a no-brainer.
         </p>
 
-        <div className="not-prose my-10 p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-800">
-          <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-3">Ready to save big?</h3>
-          <p className="text-slate-600 dark:text-slate-400 mb-4">Get up to 75% off Hostinger VPS hosting.</p>
+        <div className="not-prose my-8 sm:my-10 p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-800">
+          <h3 className="font-bold text-slate-900 dark:text-white text-base sm:text-lg mb-2 sm:mb-3">Ready to save big?</h3>
+          <p className="text-slate-600 dark:text-slate-400 mb-4 text-sm sm:text-base">Get up to 75% off Hostinger VPS hosting.</p>
           <CTAButton href={affiliateLinks.hostinger}>
             🔥 Get Hostinger VPS Deal
           </CTAButton>
-          <p className="text-xs text-slate-500 dark:text-slate-500 mt-4">
+          <p className="text-xs text-slate-500 dark:text-slate-500 mt-3 sm:mt-4">
             * Affiliate link — I earn a small commission at no extra cost to you.
           </p>
         </div>
@@ -374,10 +374,10 @@ export default function BlogPost() {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4">
             {post.title}
           </h1>
-          <p className="text-2xl md:text-3xl text-slate-500 dark:text-slate-400">
+          <p className="text-xl sm:text-2xl md:text-3xl text-slate-500 dark:text-slate-400">
             {post.subtitle}
           </p>
         </motion.div>
