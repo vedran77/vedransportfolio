@@ -59,6 +59,16 @@ body {
   display: none;  /* Chrome, Safari and Opera */
 }
 
+/* Hide native scrollbar on redesign page */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Touch-friendly interactions */
 .touch-manipulation {
   touch-action: manipulation;

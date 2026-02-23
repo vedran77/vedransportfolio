@@ -8,6 +8,11 @@ export default function ScrollProgress() {
   const springProgress = useSpring(0, { stiffness: 100, damping: 30 });
 
   useEffect(() => {
+    document.body.classList.add("hide-scrollbar");
+    return () => document.body.classList.remove("hide-scrollbar");
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
