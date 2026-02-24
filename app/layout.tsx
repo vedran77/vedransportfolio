@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fira_Code, Outfit } from "next/font/google";
 import "./globals.css";
-import HeaderWrapper from "@/components/HeaderWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const firaCode = Fira_Code({
   subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
   subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Vedran - Creative Developer",
-  description: "Portfolio of Vedran - A creative developer transforming ideas into exceptional digital experiences",
+  title: "Vedran — Portfolio",
+  description: "Building digital experiences with craft and intention",
 };
 
 export default function RootLayout({
@@ -26,9 +27,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${firaCode.variable} ${outfit.variable} antialiased`}
       >
-        <HeaderWrapper />
         {children}
       </body>
     </html>

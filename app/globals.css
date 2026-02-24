@@ -59,7 +59,7 @@ body {
   display: none;  /* Chrome, Safari and Opera */
 }
 
-/* Hide native scrollbar on redesign page */
+/* Hide native scrollbar */
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
