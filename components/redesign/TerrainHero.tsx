@@ -6,58 +6,58 @@ import { useEffect, useRef, useState } from "react";
 const name = "Vedran";
 const roles = ["full-stack developer", "problem solver", "code craftsman"];
 
-// Floating code snippets — many, scattered everywhere, opacity fades toward center
+// Floating code snippets — opacity fades toward center but everything is more visible
 const codeSnippets = [
-  // ===== CORNERS (highest opacity ~0.20-0.25) =====
-  { position: "top-[8%] left-[3%]", opacity: 0.24, delay: 1.8, speed: 55, lines: [
+  // ===== CORNERS (highest opacity) =====
+  { position: "top-[8%] left-[3%]", opacity: 0.30, delay: 1.8, speed: 55, lines: [
     'const dev = {', '  name: "Vedran",', '  focus: "web",', '  coffee: true,', '};',
   ]},
-  { position: "top-[6%] right-[6%]", opacity: 0.20, delay: 2.4, speed: 65, lines: [
+  { position: "top-[6%] right-[6%]", opacity: 0.26, delay: 2.4, speed: 65, lines: [
     '// stack.config', 'export default {', '  framework: "next",', '  lang: "typescript",', '  strict: true,', '};',
   ]},
-  { position: "bottom-[10%] left-[2%]", opacity: 0.22, delay: 3.2, speed: 50, lines: [
+  { position: "bottom-[10%] left-[2%]", opacity: 0.28, delay: 3.2, speed: 50, lines: [
     'async function build() {', '  await compile();', '  await test();', '  return "shipped";', '}',
   ]},
-  { position: "bottom-[8%] right-[4%]", opacity: 0.18, delay: 4.0, speed: 60, lines: [
+  { position: "bottom-[8%] right-[4%]", opacity: 0.24, delay: 4.0, speed: 60, lines: [
     'interface Project {', '  title: string;', '  stack: string[];', '  live: boolean;', '}',
   ]},
-  // ===== EDGES (medium opacity ~0.12-0.18) =====
-  { position: "top-[30%] left-[2%]", opacity: 0.16, delay: 2.8, speed: 70, lines: [
+  // ===== EDGES (medium opacity) =====
+  { position: "top-[30%] left-[2%]", opacity: 0.22, delay: 2.8, speed: 70, lines: [
     'const skills = [', '  "react",', '  "node",', '  "go",', '  "rust",', '];',
   ]},
-  { position: "top-[25%] right-[2%]", opacity: 0.14, delay: 3.6, speed: 60, lines: [
+  { position: "top-[25%] right-[2%]", opacity: 0.20, delay: 3.6, speed: 60, lines: [
     'try {', '  await deploy();', '} catch (err) {', '  rollback();', '}',
   ]},
-  { position: "bottom-[30%] left-[4%]", opacity: 0.15, delay: 5.0, speed: 65, lines: [
+  { position: "bottom-[30%] left-[4%]", opacity: 0.20, delay: 5.0, speed: 65, lines: [
     '// api/route.ts', 'export async function GET() {', '  const data = await db.query();', '  return Response.json(data);', '}',
   ]},
-  { position: "bottom-[28%] right-[3%]", opacity: 0.13, delay: 4.5, speed: 55, lines: [
+  { position: "bottom-[28%] right-[3%]", opacity: 0.18, delay: 4.5, speed: 55, lines: [
     'const config = {', '  theme: "dark",', '  port: 3000,', '  hot: true,', '};',
   ]},
-  // ===== MID-EDGES (lower opacity ~0.08-0.12) =====
-  { position: "top-[48%] left-[1%]", opacity: 0.10, delay: 3.0, speed: 75, lines: [
+  // ===== MID-EDGES =====
+  { position: "top-[48%] left-[1%]", opacity: 0.16, delay: 3.0, speed: 75, lines: [
     '// deploy.sh', 'git push origin main', 'vercel --prod',
   ]},
-  { position: "top-[52%] right-[1%]", opacity: 0.08, delay: 5.5, speed: 70, lines: [
+  { position: "top-[52%] right-[1%]", opacity: 0.14, delay: 5.5, speed: 70, lines: [
     'npm run build', 'npm run test', 'npm run lint',
   ]},
-  { position: "top-[15%] left-[25%]", opacity: 0.07, delay: 6.0, speed: 80, lines: [
+  { position: "top-[15%] left-[25%]", opacity: 0.13, delay: 6.0, speed: 80, lines: [
     'type Props = {', '  children: ReactNode;', '};',
   ]},
-  { position: "top-[18%] right-[22%]", opacity: 0.06, delay: 6.5, speed: 75, lines: [
+  { position: "top-[18%] right-[22%]", opacity: 0.12, delay: 6.5, speed: 75, lines: [
     'useEffect(() => {', '  init();', '}, []);',
   ]},
-  { position: "bottom-[15%] left-[20%]", opacity: 0.07, delay: 7.0, speed: 70, lines: [
+  { position: "bottom-[15%] left-[20%]", opacity: 0.13, delay: 7.0, speed: 70, lines: [
     'const [state, setState] =', '  useState(null);',
   ]},
-  { position: "bottom-[18%] right-[18%]", opacity: 0.06, delay: 7.5, speed: 80, lines: [
+  { position: "bottom-[18%] right-[18%]", opacity: 0.12, delay: 7.5, speed: 80, lines: [
     '// TODO: optimize', 'memo(() => render())',
   ]},
-  // ===== NEAR CENTER (lowest opacity ~0.04-0.06) =====
-  { position: "top-[38%] left-[15%]", opacity: 0.05, delay: 5.0, speed: 85, lines: [
+  // ===== NEAR CENTER (still visible, just softer) =====
+  { position: "top-[38%] left-[15%]", opacity: 0.09, delay: 5.0, speed: 85, lines: [
     'import { motion }', '  from "framer-motion";',
   ]},
-  { position: "bottom-[38%] right-[14%]", opacity: 0.04, delay: 8.0, speed: 80, lines: [
+  { position: "bottom-[38%] right-[14%]", opacity: 0.08, delay: 8.0, speed: 80, lines: [
     'return (<>', '  <App />', '</>);',
   ]},
 ];
