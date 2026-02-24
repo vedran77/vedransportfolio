@@ -6,6 +6,216 @@ import { useEffect, useRef, useState } from "react";
 const name = "Vedran";
 const roles = ["full-stack developer", "problem solver", "code craftsman"];
 
+// Floating code snippets with position, content, and opacity based on distance from center
+const codeSnippets = [
+  {
+    // Top-left corner — far from center = higher opacity
+    position: "top-[12%] left-[5%]",
+    opacity: 0.22,
+    delay: 2.0,
+    speed: 60,
+    lines: [
+      { text: "const dev = {", color: "#6B8CAE", kw: "const" },
+      { text: '  name: "Vedran",', color: "#6B8CAE", str: '"Vedran"' },
+      { text: '  focus: "web",', color: "#6B8CAE", str: '"web"' },
+      { text: "  coffee: true,", color: "#6B8CAE", kw2: "true" },
+      { text: "};", color: "#6B8CAE" },
+    ],
+  },
+  {
+    // Bottom-left — far from center
+    position: "bottom-[14%] left-[4%]",
+    opacity: 0.2,
+    delay: 3.0,
+    speed: 55,
+    lines: [
+      { text: "async function build() {", color: "#6B8CAE", kw: "async function" },
+      { text: "  await compile();", color: "#6B8CAE", kw: "await" },
+      { text: "  await test();", color: "#6B8CAE", kw: "await" },
+      { text: '  return "shipped";', color: "#6B8CAE", kw: "return", str: '"shipped"' },
+      { text: "}", color: "#6B8CAE" },
+    ],
+  },
+  {
+    // Right side, upper — medium distance
+    position: "top-[20%] right-[4%]",
+    opacity: 0.15,
+    delay: 2.5,
+    speed: 70,
+    lines: [
+      { text: "// stack.config", color: "#6B8CAE" },
+      { text: "export default {", color: "#6B8CAE", kw: "export default" },
+      { text: '  framework: "next",', color: "#6B8CAE", str: '"next"' },
+      { text: '  lang: "typescript",', color: "#6B8CAE", str: '"typescript"' },
+      { text: "  strict: true,", color: "#6B8CAE", kw2: "true" },
+      { text: "};", color: "#6B8CAE" },
+    ],
+  },
+  {
+    // Bottom-right — medium-far
+    position: "bottom-[18%] right-[3%]",
+    opacity: 0.18,
+    delay: 3.5,
+    speed: 65,
+    lines: [
+      { text: "interface Project {", color: "#6B8CAE", kw: "interface" },
+      { text: "  title: string;", color: "#6B8CAE", kw2: "string" },
+      { text: "  stack: string[];", color: "#6B8CAE", kw2: "string" },
+      { text: "  live: boolean;", color: "#6B8CAE", kw2: "boolean" },
+      { text: "}", color: "#6B8CAE" },
+    ],
+  },
+  {
+    // Left, mid — closer to center = lower opacity
+    position: "top-[45%] left-[3%]",
+    opacity: 0.1,
+    delay: 4.0,
+    speed: 75,
+    lines: [
+      { text: "const skills = [", color: "#6B8CAE", kw: "const" },
+      { text: '  "react",', color: "#6B8CAE", str: '"react"' },
+      { text: '  "node",', color: "#6B8CAE", str: '"node"' },
+      { text: '  "go",', color: "#6B8CAE", str: '"go"' },
+      { text: "];", color: "#6B8CAE" },
+    ],
+  },
+  {
+    // Right, mid — closer to center = lower opacity
+    position: "top-[55%] right-[5%]",
+    opacity: 0.08,
+    delay: 4.5,
+    speed: 70,
+    lines: [
+      { text: "// deploy.sh", color: "#6B8CAE" },
+      { text: "git push origin main", color: "#6B8CAE" },
+      { text: "vercel --prod", color: "#6B8CAE" },
+    ],
+  },
+];
+
+// Typewriter component for each floating snippet
+function FloatingCode({
+  lines,
+  opacity,
+  delay,
+  speed,
+  position,
+}: {
+  lines: { text: string; color: string; kw?: string; kw2?: string; str?: string }[];
+  opacity: number;
+  delay: number;
+  speed: number;
+  position: string;
+}) {
+  const [visibleChars, setVisibleChars] = useState(0);
+  const totalChars = lines.reduce((sum, l) => sum + l.text.length, 0);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    const startDelay = setTimeout(() => {
+      const type = () => {
+        setVisibleChars((prev) => {
+          if (prev >= totalChars) return prev;
+          timeout = setTimeout(type, speed + Math.random() * 40);
+          return prev + 1;
+        });
+      };
+      type();
+    }, delay * 1000);
+
+    return () => {
+      clearTimeout(startDelay);
+      clearTimeout(timeout);
+    };
+  }, [delay, speed, totalChars]);
+
+  let charCount = 0;
+
+  return (
+    <div
+      className={`absolute ${position} hidden md:block select-none pointer-events-none`}
+      style={{
+        fontFamily: "var(--font-display)",
+        fontSize: "11px",
+        lineHeight: "1.7",
+        opacity,
+      }}
+    >
+      {lines.map((line, i) => {
+        const lineStart = charCount;
+        charCount += line.text.length;
+        const visibleLen = Math.max(0, Math.min(line.text.length, visibleChars - lineStart));
+        const visibleText = line.text.slice(0, visibleLen);
+
+        if (visibleLen === 0) return <div key={i} className="h-[1.1em]" />;
+
+        // Syntax highlight the visible portion
+        let highlighted: React.ReactNode = visibleText;
+
+        if (line.kw || line.kw2 || line.str) {
+          const parts: React.ReactNode[] = [];
+          let remaining = visibleText;
+          let key = 0;
+
+          // Highlight keywords
+          if (line.kw && remaining.includes(line.kw.slice(0, Math.min(line.kw.length, remaining.length)))) {
+            const kwVisible = line.kw.slice(0, Math.min(line.kw.length, remaining.indexOf(line.kw) + line.kw.length));
+            if (remaining.startsWith(kwVisible.split("").slice(0, remaining.length)[0] || "")) {
+              // Simple approach: just colorize known patterns
+            }
+          }
+
+          // Simpler approach: split by known strings
+          const rawText = visibleText;
+          let cursor = 0;
+
+          const kwPatterns = [line.kw, line.kw2, line.str].filter(Boolean) as string[];
+
+          // Build segments
+          const segments: { text: string; isKw: boolean; isStr: boolean }[] = [];
+          let temp = rawText;
+
+          for (const pattern of kwPatterns) {
+            const idx = temp.indexOf(pattern);
+            if (idx >= 0) {
+              if (idx > 0) segments.push({ text: temp.slice(0, idx), isKw: false, isStr: false });
+              const isStr = pattern.startsWith('"');
+              segments.push({ text: pattern, isKw: !isStr, isStr });
+              temp = temp.slice(idx + pattern.length);
+            }
+          }
+          if (temp) segments.push({ text: temp, isKw: false, isStr: false });
+
+          if (segments.length > 0) {
+            highlighted = segments.map((seg, si) => (
+              <span
+                key={si}
+                style={{
+                  color: seg.isKw ? "#34D399" : seg.isStr ? "#34D399" : line.color,
+                }}
+              >
+                {seg.text}
+              </span>
+            ));
+          }
+        }
+
+        return (
+          <div key={i} style={{ color: line.color }}>
+            {highlighted}
+            {visibleLen < line.text.length && visibleLen > 0 && (
+              <span
+                className="inline-block w-[1px] h-[1em] align-middle ml-px"
+                style={{ backgroundColor: "#34D399", opacity: 0.6 }}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function TerrainHero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
@@ -165,30 +375,17 @@ export default function TerrainHero() {
         </span>
       </motion.div>
 
-      {/* Decorative code lines - top left */}
-      <motion.div
-        className="absolute top-8 left-8 md:top-12 md:left-12 text-xs md:text-sm select-none"
-        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.3, y: decorY }}
-      >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          transition={{ delay: 2.0, duration: 1 }}
-        >
-          <div>// portfolio.tsx</div>
-          <div>// last updated: 2026</div>
-        </motion.div>
-      </motion.div>
-
-      {/* Decorative line number gutter - right side */}
-      <motion.div
-        className="absolute top-1/2 -translate-y-1/2 right-8 md:right-12 hidden md:flex flex-col gap-1 select-none"
-        style={{ fontFamily: "var(--font-display)", color: "#6B8CAE", opacity: 0.15, y: decorY }}
-      >
-        {Array.from({ length: 20 }, (_, i) => (
-          <div key={i} className="text-xs text-right" style={{ width: "2ch" }}>
-            {i + 1}
-          </div>
+      {/* Floating code snippets — typewriter animated, opacity fades toward center */}
+      <motion.div className="absolute inset-0" style={{ y: decorY }}>
+        {codeSnippets.map((snippet, i) => (
+          <FloatingCode
+            key={i}
+            lines={snippet.lines}
+            opacity={snippet.opacity}
+            delay={snippet.delay}
+            speed={snippet.speed}
+            position={snippet.position}
+          />
         ))}
       </motion.div>
 
@@ -314,27 +511,6 @@ export default function TerrainHero() {
             <span style={{ color: "#64748B" }}>&gt;</span> contact
           </a>
         </motion.div>
-      </motion.div>
-
-      {/* Mini code snippet - bottom left */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
-        className="absolute bottom-12 left-8 md:left-12 hidden md:block select-none"
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "11px",
-          lineHeight: "1.6",
-          color: "#6B8CAE",
-          opacity: 0.25,
-        }}
-      >
-        <div><span style={{ color: "#34D399", opacity: 0.6 }}>const</span> dev = {"{"}</div>
-        <div>&nbsp;&nbsp;name: <span style={{ color: "#34D399", opacity: 0.6 }}>&quot;Vedran&quot;</span>,</div>
-        <div>&nbsp;&nbsp;focus: <span style={{ color: "#34D399", opacity: 0.6 }}>&quot;web&quot;</span>,</div>
-        <div>&nbsp;&nbsp;coffee: <span style={{ color: "#34D399", opacity: 0.6 }}>true</span>,</div>
-        <div>{"}"};</div>
       </motion.div>
 
       {/* Scroll indicator */}
