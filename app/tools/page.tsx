@@ -7,24 +7,99 @@ const tools = [
   {
     slug: "text-compare",
     name: "Text Compare",
-    description:
-      "Side-by-side diff with character-level highlighting. No sign-ups, no limits.",
+    description: "Side-by-side diff with character-level highlighting.",
     icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 3v18" />
-        <path d="M3 7h4l2 2-2 2H3" />
-        <path d="M21 7h-4l-2 2 2 2h4" />
-        <path d="M3 13h4l2 2-2 2H3" />
-        <path d="M21 13h-4l-2 2 2 2h4" />
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 3v18" /><path d="M3 7h4l2 2-2 2H3" /><path d="M21 7h-4l-2 2 2 2h4" />
+      </svg>
+    ),
+    accent: "#34D399",
+  },
+  {
+    slug: "json-formatter",
+    name: "JSON Formatter",
+    description: "Format, minify, and validate JSON with syntax highlighting.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 7c0-1.1.9-2 2-2h1c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2" /><path d="M4 17c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-3c0-1.1-.9-2-2-2" />
+        <path d="M20 7c0-1.1-.9-2-2-2h-1c-1.1 0-2 .9-2 2v3c0 1.1.9 2 2 2" /><path d="M20 17c0 1.1-.9 2-2 2h-1c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2" />
+      </svg>
+    ),
+    accent: "#fbbf24",
+  },
+  {
+    slug: "base64",
+    name: "Base64",
+    description: "Encode and decode Base64 with file support and URL-safe mode.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 3l5 5-5 5" /><path d="M8 21l-5-5 5-5" /><path d="M14 3l-4 18" />
+      </svg>
+    ),
+    accent: "#a78bfa",
+  },
+  {
+    slug: "regex-tester",
+    name: "Regex Tester",
+    description: "Real-time pattern matching with capture groups and presets.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="3" /><path d="M12 2v4" /><path d="M12 18v4" /><path d="M4.93 4.93l2.83 2.83" /><path d="M16.24 16.24l2.83 2.83" /><path d="M2 12h4" /><path d="M18 12h4" />
+      </svg>
+    ),
+    accent: "#f97316",
+  },
+  {
+    slug: "color-converter",
+    name: "Color Converter",
+    description: "HEX, RGB, HSL converter with contrast checker and palettes.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" /><path d="M12 2a10 10 0 0 1 0 20" fill="currentColor" opacity="0.3" />
+      </svg>
+    ),
+    accent: "#ec4899",
+  },
+  {
+    slug: "lorem-generator",
+    name: "Lorem Generator",
+    description: "Lorem ipsum, fake API responses, and placeholder user data.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 7h16" /><path d="M4 12h12" /><path d="M4 17h8" />
+      </svg>
+    ),
+    accent: "#6B8CAE",
+  },
+  {
+    slug: "url-encoder",
+    name: "URL Encoder",
+    description: "Encode, decode, and parse URLs with query parameter editor.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+      </svg>
+    ),
+    accent: "#22d3ee",
+  },
+  {
+    slug: "hash-generator",
+    name: "Hash Generator",
+    description: "SHA-1, SHA-256, SHA-512 hashing with comparison mode.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 9h16" /><path d="M4 15h16" /><path d="M10 3v18" /><path d="M14 3v18" />
+      </svg>
+    ),
+    accent: "#64748B",
+  },
+  {
+    slug: "timestamp-converter",
+    name: "Timestamp Converter",
+    description: "Unix timestamp converter with live clock and date math.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
       </svg>
     ),
     accent: "#34D399",
@@ -202,31 +277,6 @@ export default function ToolsPage() {
             </motion.div>
           ))}
 
-          {/* Coming soon placeholder */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: 0.3,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="rounded-lg p-6 flex items-center justify-center"
-            style={{
-              border: "1px dashed rgba(107, 140, 174, 0.1)",
-              minHeight: "180px",
-            }}
-          >
-            <span
-              className="text-sm"
-              style={{
-                fontFamily: "var(--font-display)",
-                color: "rgba(107, 140, 174, 0.2)",
-              }}
-            >
-              more coming soon...
-            </span>
-          </motion.div>
         </div>
       </div>
     </div>

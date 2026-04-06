@@ -8,7 +8,63 @@ const tools = [
     slug: "text-compare",
     name: "Text Compare",
     tagline: "diff(a, b)",
-    description: "Powerful side-by-side text diff with character-level highlighting.",
+    description: "Side-by-side diff with character-level highlighting.",
+    accent: "#34D399",
+  },
+  {
+    slug: "json-formatter",
+    name: "JSON Formatter",
+    tagline: "JSON.parse()",
+    description: "Format, minify, and validate JSON with syntax highlighting.",
+    accent: "#fbbf24",
+  },
+  {
+    slug: "base64",
+    name: "Base64",
+    tagline: "btoa() / atob()",
+    description: "Encode and decode Base64 with file support.",
+    accent: "#a78bfa",
+  },
+  {
+    slug: "regex-tester",
+    name: "Regex Tester",
+    tagline: "/pattern/gi",
+    description: "Real-time pattern matching with capture groups.",
+    accent: "#f97316",
+  },
+  {
+    slug: "color-converter",
+    name: "Color Converter",
+    tagline: "hex ↔ rgb ↔ hsl",
+    description: "Convert colors with contrast checker and palettes.",
+    accent: "#ec4899",
+  },
+  {
+    slug: "lorem-generator",
+    name: "Lorem Generator",
+    tagline: "lorem(n)",
+    description: "Lorem ipsum, fake API data, and placeholder users.",
+    accent: "#6B8CAE",
+  },
+  {
+    slug: "url-encoder",
+    name: "URL Encoder",
+    tagline: "encodeURI()",
+    description: "Encode, decode, and parse URLs with param editor.",
+    accent: "#22d3ee",
+  },
+  {
+    slug: "hash-generator",
+    name: "Hash Generator",
+    tagline: "sha256()",
+    description: "SHA-1, SHA-256, SHA-512 hashing with comparison.",
+    accent: "#64748B",
+  },
+  {
+    slug: "timestamp-converter",
+    name: "Timestamp Converter",
+    tagline: "Date.now()",
+    description: "Unix timestamps, live clock, and date math.",
     accent: "#34D399",
   },
 ];
@@ -143,24 +199,6 @@ export default function TerrainTools() {
                   >
                     {tool.description}
                   </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {["free", "no sign-up", "runs locally"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded text-xs"
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          backgroundColor: "rgba(52, 211, 153, 0.06)",
-                          border: "1px solid rgba(52, 211, 153, 0.12)",
-                          color: "#34D399",
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
 
                   <div
                     className="text-xs flex items-center gap-1.5 transition-colors duration-200"

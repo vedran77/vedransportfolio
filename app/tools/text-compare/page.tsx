@@ -858,16 +858,32 @@ export default function TextComparePage() {
 
 function renderCharDiffs(charDiffs: CharDiff[], lineType: "added" | "removed") {
   return charDiffs.map((cd, i) => {
-    if (cd.type === "equal") return <span key={i}>{cd.value}</span>;
+    if (cd.type === "equal") {
+      return (
+        <span
+          key={i}
+          style={{
+            backgroundColor: "rgba(52, 211, 153, 0.15)",
+            color: "#34D399",
+            borderRadius: "2px",
+          }}
+        >
+          {cd.value}
+        </span>
+      );
+    }
     return (
       <span
         key={i}
         style={{
           backgroundColor:
             lineType === "added"
-              ? "rgba(52, 211, 153, 0.25)"
-              : "rgba(248, 113, 113, 0.25)",
+              ? "rgba(52, 211, 153, 0.35)"
+              : "rgba(248, 113, 113, 0.35)",
+          color: lineType === "added" ? "#86efac" : "#fca5a5",
           borderRadius: "2px",
+          textDecoration: lineType === "removed" ? "line-through" : "none",
+          textDecorationColor: "rgba(248, 113, 113, 0.5)",
         }}
       >
         {cd.value}
