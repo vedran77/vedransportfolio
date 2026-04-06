@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import CopyButton from "@/components/tools/CopyButton";
 
 /* ───────────────────────── constants ───────────────────────── */
 
@@ -349,7 +350,7 @@ export default function HashGeneratorPage() {
             >
               {/* Input panel */}
               <div
-                className="rounded-lg overflow-hidden mb-6"
+                className="relative group rounded-lg overflow-hidden mb-6"
                 style={{
                   backgroundColor: "rgba(107, 140, 174, 0.04)",
                   border: "1px solid rgba(107, 140, 174, 0.1)",
@@ -380,6 +381,7 @@ export default function HashGeneratorPage() {
                     {input.length} char{input.length !== 1 ? "s" : ""}
                   </span>
                 </div>
+                <CopyButton getValue={() => input} />
                 <textarea
                   ref={inputRef}
                   value={input}
@@ -516,12 +518,13 @@ export default function HashGeneratorPage() {
             >
               {/* Text input */}
               <div
-                className="rounded-lg overflow-hidden"
+                className="relative group rounded-lg overflow-hidden"
                 style={{
                   backgroundColor: "rgba(107, 140, 174, 0.04)",
                   border: "1px solid rgba(107, 140, 174, 0.1)",
                 }}
               >
+                <CopyButton getValue={() => compareText} />
                 <div
                   className="flex items-center justify-between px-4 py-2.5"
                   style={{
@@ -568,12 +571,13 @@ export default function HashGeneratorPage() {
 
               {/* Hash input */}
               <div
-                className="rounded-lg overflow-hidden"
+                className="relative group rounded-lg overflow-hidden"
                 style={{
                   backgroundColor: "rgba(107, 140, 174, 0.04)",
                   border: "1px solid rgba(107, 140, 174, 0.1)",
                 }}
               >
+                <CopyButton getValue={() => compareHash} />
                 <div
                   className="flex items-center justify-between px-4 py-2.5"
                   style={{

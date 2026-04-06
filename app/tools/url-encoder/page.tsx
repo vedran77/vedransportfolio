@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import CopyButton from "@/components/tools/CopyButton";
 
 /* ───────────────────────── types ───────────────────────── */
 
@@ -473,7 +474,8 @@ export default function URLEncoderPage() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-12"
         >
           {/* Input */}
-          <div className="rounded-lg overflow-hidden flex flex-col" style={{ backgroundColor: panelBg, border: panelBorder }}>
+          <div className="relative group rounded-lg overflow-hidden flex flex-col" style={{ backgroundColor: panelBg, border: panelBorder }}>
+            <CopyButton getValue={() => input} />
             <div className="flex items-center justify-between px-4 py-2.5" style={{ borderBottom: headerBorder }}>
               <span style={labelStyle}>input</span>
               <span style={{ ...labelStyle, color: "rgba(107, 140, 174, 0.3)" }}>
@@ -492,7 +494,8 @@ export default function URLEncoderPage() {
           </div>
 
           {/* Output */}
-          <div className="rounded-lg overflow-hidden flex flex-col" style={{ backgroundColor: panelBg, border: panelBorder }}>
+          <div className="relative group rounded-lg overflow-hidden flex flex-col" style={{ backgroundColor: panelBg, border: panelBorder }}>
+            <CopyButton getValue={() => output} />
             <div className="flex items-center justify-between px-4 py-2.5" style={{ borderBottom: headerBorder }}>
               <span style={labelStyle}>output</span>
               <span style={{ ...labelStyle, color: "rgba(107, 140, 174, 0.3)" }}>

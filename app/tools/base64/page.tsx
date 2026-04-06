@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import CopyButton from "@/components/tools/CopyButton";
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -458,7 +459,7 @@ export default function Base64Page() {
         >
           {/* Input panel */}
           <div
-            className="rounded-lg overflow-hidden flex flex-col transition-all duration-200"
+            className="relative group rounded-lg overflow-hidden flex flex-col transition-all duration-200"
             style={{
               backgroundColor: "rgba(107, 140, 174, 0.04)",
               border: dragging
@@ -490,6 +491,7 @@ export default function Base64Page() {
               </span>
             </div>
 
+            <CopyButton getValue={() => input} />
             {dragging ? (
               <div
                 className="flex flex-col items-center justify-center select-none"
@@ -540,12 +542,13 @@ export default function Base64Page() {
 
           {/* Output panel */}
           <div
-            className="rounded-lg overflow-hidden flex flex-col"
+            className="relative group rounded-lg overflow-hidden flex flex-col"
             style={{
               backgroundColor: "rgba(107, 140, 174, 0.04)",
               border: "1px solid rgba(107, 140, 174, 0.1)",
             }}
           >
+            <CopyButton getValue={() => output} />
             <div
               className="flex items-center justify-between px-4 py-2.5"
               style={{ borderBottom: "1px solid rgba(107, 140, 174, 0.08)" }}

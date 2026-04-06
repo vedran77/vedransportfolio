@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import CopyButton from "@/components/tools/CopyButton";
 
 /* ───────────────────────── diff algorithm ───────────────────────── */
 
@@ -382,6 +383,7 @@ export default function TextComparePage() {
         >
           {/* Left editor */}
           <div className="relative group">
+            <CopyButton getValue={() => textA} />
             <div
               className="absolute top-3 left-4 text-xs select-none pointer-events-none"
               style={{
@@ -429,6 +431,7 @@ export default function TextComparePage() {
 
           {/* Right editor */}
           <div className="relative group">
+            <CopyButton getValue={() => textB} />
             <div
               className="absolute top-3 left-4 text-xs select-none pointer-events-none"
               style={{

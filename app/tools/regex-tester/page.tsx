@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import CopyButton from "@/components/tools/CopyButton";
 
 /* ───────────────────────── types ───────────────────────── */
 
@@ -596,7 +597,8 @@ export default function RegexTesterPage() {
           >
             test string
           </label>
-          <div className="relative">
+          <div className="relative group">
+            <CopyButton getValue={() => testString} />
             <textarea
               value={testString}
               onChange={(e) => setTestString(e.target.value)}
