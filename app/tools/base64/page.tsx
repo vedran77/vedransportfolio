@@ -490,31 +490,7 @@ export default function Base64Page() {
               </span>
             </div>
 
-            {!input && !dragging ? (
-              <div
-                className="flex flex-col items-center justify-center select-none"
-                style={{ minHeight: "200px" }}
-              >
-                <span
-                  className="text-5xl md:text-6xl font-light mb-4"
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    color: "rgba(107, 140, 174, 0.07)",
-                  }}
-                >
-                  {"< />"}
-                </span>
-                <span
-                  className="text-sm"
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    color: "rgba(107, 140, 174, 0.2)",
-                  }}
-                >
-                  paste text or drop a file
-                </span>
-              </div>
-            ) : dragging ? (
+            {dragging ? (
               <div
                 className="flex flex-col items-center justify-center select-none"
                 style={{ minHeight: "200px" }}
@@ -546,8 +522,9 @@ export default function Base64Page() {
                   setInput(e.target.value);
                   if (error) setError(null);
                 }}
+                placeholder="paste text or drop a file..."
                 spellCheck={false}
-                className="flex-1 w-full resize-none p-4 outline-none"
+                className="flex-1 w-full resize-none p-4 outline-none placeholder:opacity-20"
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: "13px",
